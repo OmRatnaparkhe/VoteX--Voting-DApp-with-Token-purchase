@@ -8,8 +8,8 @@ import TokenBalance from "../../components/TokenMarketplace/TokenBalance";
 import TokenPrice from "../../components/TokenMarketplace/TokenPrice";
 import DepositTokens from "../../components/TokenMarketplace/DepositTokens";
 
-import tokenMarketplaceAbi from "../../constant/tokenMarketplaceAbi.json";
-import erc20Abi from "../../constant/erc20Abi.json";
+import tokenMarketplaceAbi from "../../constant/TokenMarketplaceAbi.json";
+import erc20Abi from "../../constant/Erc20Abi.json";
 
 import { toast } from "react-hot-toast";
 
