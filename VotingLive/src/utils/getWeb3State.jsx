@@ -1,6 +1,7 @@
 import { ethers } from 'ethers';
 import VotingAbi from '../constant/VotingAbi.json';
 import axios from 'axios';
+import { API_URL } from "../config/constants";
 
 const contractAddress = "0x3518289db012C04C0b945Cc3F187baC4Ad0D31af";
 
@@ -22,7 +23,7 @@ export const getWeb3State = async () => {
         const message = "Welcome to the Voting DApp! Please sign this message to connect your wallet.";
         const signature = await signer.signMessage(message);
         const dataSignature = { signature };
-        const res = await axios.post(`http://localhost:3000/api/authentication?accountAddress=${selectedAccount}`,dataSignature);
+        const res = await axios.post(`${API_URL}/authentication?accountAddress=${selectedAccount}`, dataSignature);
         localStorage.setItem("token", res.data.token);
         const contractInstance = new ethers.Contract(contractAddress, VotingAbi, signer);
         return {contractInstance, selectedAccount, chainId, signer, provider};

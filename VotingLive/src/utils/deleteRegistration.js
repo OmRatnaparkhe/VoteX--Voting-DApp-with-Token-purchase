@@ -1,4 +1,5 @@
 import axios from "axios";
+import { API_URL } from "../config/constants";
 
 export const deleteVoterRegistration = async () => {
   try {
@@ -8,7 +9,7 @@ export const deleteVoterRegistration = async () => {
         'x-access-token': token
       }
     };
-    const res = await axios.delete("http://localhost:3000/api/deleteVoterRegistration", config);
+    const res = await axios.delete(`${API_URL}/deleteVoterRegistration`, config);
     if (res.data.message === "Registration deleted successfully") {
       return { success: true, message: res.data.message };
     }
@@ -30,7 +31,7 @@ export const deleteCandidateRegistration = async () => {
         'x-access-token': token
       }
     };
-    const res = await axios.delete("http://localhost:3000/api/deleteCandidateRegistration", config);
+    const res = await axios.delete(`${API_URL}/deleteCandidateRegistration`, config);
     if (res.data.message === "Registration deleted successfully") {
       return { success: true, message: res.data.message };
     }

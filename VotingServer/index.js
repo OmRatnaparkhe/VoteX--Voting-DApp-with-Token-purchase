@@ -11,9 +11,9 @@ import "dotenv/config";
 const app = express();
 
 app.use(cors({
-    origin: "*", // Or specify exact frontend URLs like http://localhost:5173, http://localhost:5174
+    origin: "*", 
     methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true
+    allowedHeaders: ["Content-Type", "x-access-token"]
 }));
 
 app.use(express.json());

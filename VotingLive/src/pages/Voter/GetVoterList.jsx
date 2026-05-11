@@ -12,6 +12,8 @@ import {
 } from "../../components/ui/table";
 import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/card";
 
+import { API_URL } from "../../config/constants";
+
 const GetVoterList = () => {
   const { web3State } = useWeb3Context();
   const { contractInstance } = web3State;
@@ -70,7 +72,7 @@ const GetVoterList = () => {
                       <TableCell className="text-left font-medium">{voter.name}</TableCell>
                       <TableCell className="text-left">
                         <img
-                          src={`http://localhost:3000/api/getVoterImage/${voter.voterAddress}`}
+                          src={`${API_URL}/getVoterImage/${voter.voterAddress}`}
                           alt={`${voter.name}'s photo`}
                           className="w-12 h-12 rounded-full object-cover inline-block border bg-slate-100"
                           onError={(e) => {

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { API_URL } from "../config/constants";
 
 export const uploadVoterImage = async (file) => {
   try {
@@ -13,7 +14,7 @@ export const uploadVoterImage = async (file) => {
         'Content-Type': 'multipart/form-data'
       }
     };
-    const res = await axios.post("http://localhost:3000/api/postVoterImage", formData, config);
+    const res = await axios.post(`${API_URL}/postVoterImage`, formData, config);
     console.log(res);
     if (res.status === 200) { 
       return true;
