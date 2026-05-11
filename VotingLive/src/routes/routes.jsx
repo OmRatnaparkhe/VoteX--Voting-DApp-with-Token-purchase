@@ -1,13 +1,13 @@
 import Layout from "../components/Layout/Layout";
-import RegisterVoter from "../pages/Voter/index";
-import RegisterCandidate from "../pages/Candidate/index";
-import GetVoterList from "../pages/Voter/GetVoterList";
-import GetCandidateList from "../pages/Candidate/GetCandidateList";
+import RegisterVoter from "../pages/Voter";
+import RegisterCandidate from "../pages/Candidate";
+import GetVoterList from "../pages/GetVoterList";
+import GetCandidateList from "../pages/GetCandidateList";
 import CastVote from "../components/Voter/CasteVote";
 import { createBrowserRouter } from "react-router-dom";
 import Wallet from "../components/Wallet/Wallet";
-import ElectionCommission from "../pages/ElectionCommission/index";
-import TokenMarketplace from "../pages/TokenMarketplace/index";
+import ElectionCommission from "../pages/ElectionCommission";
+import TokenMarketplace from "../pages/TokenMarketplace";
 import RoleSelection from "../components/RoleSelection/RoleSelection";
 
 export const routes = createBrowserRouter([

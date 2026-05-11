@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useWeb3Context } from "../../context/useWeb3Context";
+import { useWeb3Context } from "../context/useWeb3Context";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import {
@@ -9,15 +9,14 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "../../components/ui/table";
-import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/card";
+} from "../components/ui/table";
+import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
+import { API_URL } from "../config/constants";
 
-import { API_URL } from "../../config/constants";
-
-const GetCandidateList = () => {
+const GetVoterList = () => {
   const { web3State } = useWeb3Context();
   const { contractInstance } = web3State;
-  const [candidateList, setCandidateList] = useState([]);
+  const [voterList, setVoterList] = useState([]);
   const token = localStorage.getItem("token");
   const navigateTo = useNavigate();
 
@@ -28,23 +27,25 @@ const GetCandidateList = () => {
   }, [navigateTo, token]);
 
   useEffect(() => {
-    const fetchCandidateList = async () => {
+    const fetchVoterList = async () => {
       try {
-        const candidateList = await contractInstance.getCandidateList();
-        setCandidateList(candidateList);
+        if (contractInstance) {
+           const list = await contractInstance.getVoterList();
+           setVoterList(list);
+        }
       } catch (error) {
-        toast.error("Error: Getting Candidate List");
+        toast.error("Error: Getting Voting List");
         console.error(error);
       }
     };
-    contractInstance && fetchCandidateList();
+    fetchVoterList();
   }, [contractInstance]);
 
   return (
     <div className="max-w-4xl mx-auto py-4">
       <Card>
         <CardHeader>
-          <CardTitle className="text-2xl">Registered Candidates</CardTitle>
+          <CardTitle className="text-2xl">Registered Voters</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="rounded-md border">
@@ -53,34 +54,30 @@ const GetCandidateList = () => {
                 <TableRow>
                   <TableHead className="text-left">Address</TableHead>
                   <TableHead className="text-left">Name</TableHead>
-                  <TableHead className="text-left">Party</TableHead>
-                  <TableHead className="text-left">Votes</TableHead>
                   <TableHead className="text-left">Photo</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {candidateList.length === 0 ? (
+                {voterList.length === 0 ? (
                   <TableRow>
-                    <TableCell colSpan={5} className="h-24 text-center text-muted-foreground">
-                      No Candidates Found!
+                    <TableCell colSpan={3} className="h-24 text-center text-muted-foreground">
+                      No voters registered.
                     </TableCell>
                   </TableRow>
                 ) : (
-                  candidateList.map((candidate, index) => (
+                  voterList.map((voter, index) => (
                     <TableRow key={index}>
                       <TableCell className="font-mono text-sm text-left">
-                        {candidate.candidateAddress}
+                        {voter.voterAddress}
                       </TableCell>
-                      <TableCell className="text-left font-medium">{candidate.name}</TableCell>
-                      <TableCell className="text-left">{candidate.party}</TableCell>
-                      <TableCell className="text-left">{String(candidate.votes)}</TableCell>
+                      <TableCell className="text-left font-medium">{voter.name}</TableCell>
                       <TableCell className="text-left">
                         <img
-                          src={`${API_URL}/getCandidateImage/${candidate.candidateAddress}`}
-                          alt={`${candidate.name}'s photo`}
+                          src={`${API_URL}/getVoterImage/${voter.voterAddress}`}
+                          alt={`${voter.name}'s photo`}
                           className="w-12 h-12 rounded-full object-cover inline-block border bg-slate-100"
                           onError={(e) => {
-                            e.target.onerror = null;
+                            e.target.onerror = null; 
                             e.target.src = "https://placehold.co/150x150/png?text=No+Photo";
                           }}
                         />
@@ -97,4 +94,4 @@ const GetCandidateList = () => {
   );
 };
 
-export default GetCandidateList;
+export default GetVoterList;
