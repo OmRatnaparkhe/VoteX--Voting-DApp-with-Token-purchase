@@ -1,11 +1,11 @@
 import { useRef } from "react";
-import { useWeb3Context } from "../../context/useWeb3Context";
+import { useWeb3Context } from "../../../context/useWeb3Context";
 import { toast } from "react-hot-toast";
-import { triggerVotingStatusUpdate } from "../../utils/votingStatusUpdater";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
-import { Button } from "../ui/button";
+import { triggerVotingStatusUpdate } from "../../../utils/votingStatusUpdater";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../ui/card";
+import { Input } from "../../ui/input";
+import { Label } from "../../ui/label";
+import { Button } from "../../ui/button";
 
 const VotingTimePeriod = () => {
   const { web3State } = useWeb3Context();

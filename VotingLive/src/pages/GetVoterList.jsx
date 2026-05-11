@@ -11,7 +11,7 @@ import {
   TableRow,
 } from "../components/ui/table";
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
-import { API_URL } from "../config/constants";
+import { API_URL } from "../../config/constants";
 
 const GetVoterList = () => {
   const { web3State } = useWeb3Context();
