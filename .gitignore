@@ -1,0 +1,29 @@
+# System Files
+.DS_Store
+Thumbs.db
+
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Environment Variables and Secrets
+.env
+**/.env
+src/address.txt
+**/address.txt
+
+# Build and Temporary folders
+dist/
+dist-ssr/
+**/dist/
+*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories
+.vscode/
+.idea/
+.DS_Store
