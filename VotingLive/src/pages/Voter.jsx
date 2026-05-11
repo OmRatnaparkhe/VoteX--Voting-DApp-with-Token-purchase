@@ -1,13 +1,13 @@
 import { useState, useRef, useEffect } from "react";
-import { useWeb3Context } from "../../context/useWeb3Context";
+import { useWeb3Context } from "../context/useWeb3Context";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { uploadVoterImage } from "../../utils/uploadVoterImage";
-import { deleteVoterRegistration } from "../../utils/deleteRegistration";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "../../components/ui/card";
-import { Input } from "../../components/ui/input";
-import { Label } from "../../components/ui/label";
-import { Button } from "../../components/ui/button";
+import { uploadVoterImage } from "../utils/uploadVoterImage";
+import { deleteVoterRegistration } from "../utils/deleteRegistration";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "../components/ui/card";
+import { Input } from "../components/ui/input";
+import { Label } from "../components/ui/label";
+import { Button } from "../components/ui/button";
 import { ShieldCheck, Settings } from "lucide-react";
 
 const RegisterVoter = () => {
