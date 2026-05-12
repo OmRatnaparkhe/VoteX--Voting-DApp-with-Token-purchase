@@ -90,7 +90,7 @@ Voting DApp/
 ```
 VotingLive/src/
 ├── components/
-│   ├── ElectionCommision/    # EC panel components (voting period, winner, emergency)
+│   ├── ElectionCommission/   # EC panel components (voting period, winner, emergency)
 │   ├── ElectionStatus/       # Election banner
 │   ├── Layout/               # Sidebar layout
 │   ├── Navigation/           # Role-based sidebar navigation
@@ -99,20 +99,25 @@ VotingLive/src/
 │   ├── Voter/                # Cast vote component
 │   ├── Wallet/               # Wallet connection page
 │   └── ui/                   # Reusable UI components (shadcn)
+├── config/                   # Global configuration (API_URL, constants)
+├── constant/                 # Smart contract ABIs (Voting, ERC20, Marketplace)
 ├── context/                  # Web3 context (provider, hook)
 ├── hooks/                    # Custom hooks (useIsCommissioner)
+├── lib/                      # Shared utility functions (tailwind merge)
 ├── pages/
-│   ├── Candidate/            # Register & List candidates
-│   ├── ElectionCommision/    # EC panel page
-│   ├── TokenMarketplace/     # Marketplace page
-│   └── Voter/                # Register & List voters
+│   ├── Candidate.jsx         # Candidate registration page
+│   ├── ElectionCommission.jsx# Election Commissioner dashboard
+│   ├── GetCandidateList.jsx  # Candidate directory
+│   ├── GetVoterList.jsx      # Voter directory
+│   ├── TokenMarketplace.jsx  # Token marketplace page
+│   └── Voter.jsx             # Voter registration page
 ├── routes/                   # React Router configuration
 └── utils/                    # API helpers (upload, delete, web3 state)
 
 VotingServer/
 ├── cloudinary.js             # Cloudinary config & upload helpers
-├── index.js                  # Express app entry point
 ├── db/connect.js             # MongoDB connection
+├── index.js                  # Express app entry point
 ├── middlewares/
 │   ├── authentication.js     # JWT verification middleware
 │   └── multer.js             # Memory-storage file upload
