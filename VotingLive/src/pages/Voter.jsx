@@ -17,6 +17,7 @@ const RegisterVoter = () => {
   const [file, setFile] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
+  const [voterData, setVoterData] = useState(null);
   const [loading, setLoading] = useState(true);
   
   const nameRef = useRef(null);
@@ -44,10 +45,18 @@ const RegisterVoter = () => {
       try {
         if (contractInstance && selectedAccount) {
           const voters = await contractInstance.getVoterList();
-          const registered = voters.some(
-            voter => voter.voterAddress.toLowerCase() === selectedAccount.toLowerCase()
+          const voter = voters.find(
+            v => v.voterAddress.toLowerCase() === selectedAccount.toLowerCase()
           );
-          setIsRegistered(registered);
+          if (voter) {
+            setIsRegistered(true);
+            setVoterData({
+              id: Number(voter.voterId),
+              name: voter.name
+            });
+          } else {
+            setIsRegistered(false);
+          }
         }
       } catch (error) {
         console.error("Error checking registration:", error);
@@ -74,6 +83,12 @@ const RegisterVoter = () => {
         await contractInstance.registerVoter(name, age, gender);
         toast.success("Registration Successful");
         setIsRegistered(true);
+        // Refresh voter list to get the ID
+        const voters = await contractInstance.getVoterList();
+        const voter = voters.find(v => v.voterAddress.toLowerCase() === selectedAccount.toLowerCase());
+        if (voter) {
+           setVoterData({ id: Number(voter.voterId), name: voter.name });
+        }
       } else {
         throw new Error("Voter Registration Failed!");
       }
@@ -123,21 +138,27 @@ const RegisterVoter = () => {
           <p className="text-slate-600 text-lg">
             Your identity has been verified on the blockchain. You are now authorized to participate in the upcoming election.
           </p>
+          {voterData && (
+            <div className="inline-block bg-blue-50 border border-blue-100 px-6 py-3 rounded-2xl mt-2">
+              <p className="text-blue-600 font-semibold text-sm uppercase tracking-wider mb-1">Your Blockchain ID</p>
+              <p className="text-2xl font-bold text-slate-900">#{voterData.id}</p>
+            </div>
+          )}
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
-          <Card className="hover:border-blue-300 transition-all cursor-pointer" onClick={() => navigateTo("/candidate-list")}>
+          <Card className="hover:border-blue-300 transition-all cursor-pointer group" onClick={() => navigateTo("/candidate-list")}>
             <CardHeader className="pb-2">
-              <CardTitle className="text-lg">View Candidates</CardTitle>
+              <CardTitle className="text-lg group-hover:text-blue-600 transition-colors">View Candidates</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-slate-500">Research the candidates before casting your valuable vote.</p>
             </CardContent>
           </Card>
           
-          <Card className="hover:border-blue-300 transition-all cursor-pointer" onClick={() => navigateTo("/cast-vote")}>
+          <Card className="hover:border-blue-300 transition-all cursor-pointer group" onClick={() => navigateTo("/cast-vote")}>
             <CardHeader className="pb-2">
-              <CardTitle className="text-lg">Cast Your Vote</CardTitle>
+              <CardTitle className="text-lg group-hover:text-blue-600 transition-colors">Cast Your Vote</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-slate-500">Securely transmit your choice to the blockchain when voting opens.</p>
